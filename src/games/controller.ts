@@ -3,7 +3,7 @@ import Game, {Colors} from './entity'
 
 const randomProperty = (obj) => {
   let keys = Object.keys(obj)
-  return obj[keys[ keys.length * Math.random() << 0]]
+  return obj[keys[keys.length * Math.random() << 0]]
 }
 
 const moves = (board1, board2) => 
@@ -29,7 +29,7 @@ export default class PageController {
 
   @Patch('/games/:id')
   @Put('/games/:id')
-  @OnUndefined(400)
+  @HttpCode(204)
   async updateGame(
     @Param('id') id : number,
     @Body() update: Partial<Game>
