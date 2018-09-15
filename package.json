@@ -1,0 +1,24 @@
+{
+  "name": "tic-tac-ts",
+  "version": "1.0.0",
+  "main": "target/index.js",
+  "author": "Xorifelse <johan.kruse.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@types/koa": "^2.0.46",
+    "@types/koa-bodyparser": "^5.0.1",
+    "@types/koa-multer": "^1.0.0",
+    "@types/koa-router": "^7.0.31",
+    "koa": "^2.5.3",
+    "koa-bodyparser": "^4.2.1",
+    "koa-multer": "^1.0.2",
+    "koa-router": "^7.4.0",
+    "pg": "^7.4.3",
+    "routing-controllers": "^0.7.7",
+    "typeorm": "^0.2.7"
+  },
+  "scripts": {
+    "ts": "tsc -w",
+    "start": "nodemon ."
+  }
+}
