@@ -13,7 +13,7 @@ const moves = (board1, board2) =>
     .length
 
 @JsonController()
-export default class PageController {
+export default class{
 
   @Get('/games')
   getGames() {
