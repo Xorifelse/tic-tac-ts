@@ -2,11 +2,11 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
 import { BaseEntity } from 'typeorm/repository/BaseEntity'
 
 export enum Colors {
-  Red = "red",
-  Blue = "blue",
-  Green = "green",
-  Yellow = "yellow",
-  Magenta = "magenta"
+  red = 'red',
+  blue = 'blue',
+  green = 'green',
+  yellow = 'yellow',
+  magenta = 'magenta',
 }
 
 @Entity()

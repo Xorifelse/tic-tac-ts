@@ -1,5 +1,10 @@
-import { JsonController, Get, Param, Post } from 'routing-controllers'
+import { JsonController, Get, Param, Post, HttpCode, Body } from 'routing-controllers'
 import Game, {Colors} from './entity'
+
+const randomProperty = (obj) => {
+  let keys = Object.keys(obj)
+  return obj[keys[ keys.length * Math.random() << 0]]
+}
 
 @JsonController()
 export default class PageController {
@@ -16,10 +21,19 @@ export default class PageController {
     return Game.findOne(id)
   }
 
-  @Post('/games')
+  @Post('/games/')
+  @HttpCode(201)
   createGame(
-    @Param('name') name: string
+    @Body() {name}: Game
   ) {
-    return Colors
+    return Game.insert({
+      name,
+      color: randomProperty(Colors),
+      board: JSON.stringify([
+        ['o', 'o', 'o'],
+        ['o', 'o', 'o'],
+        ['o', 'o', 'o']
+      ])
+    })
   }
 }
