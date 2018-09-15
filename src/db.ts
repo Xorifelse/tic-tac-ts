@@ -34,7 +34,7 @@ export default () =>
         Game
       ],
       synchronize: true,
-      logging: true,
+      logging: false,
       namingStrategy: new CustomNamingStrategy()
   })
   .then(_ => console.log(`Connected to ${DSN} with TypeORM`))

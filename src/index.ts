@@ -7,9 +7,10 @@ import GameController from './games/controller';
 const port = process.env.PORT || 4000
 
 const app = createKoaServer({
-   controllers: [
+  development: false,
+  controllers: [
     GameController
-   ]
+  ]
 })
 
 db()
