@@ -1,4 +1,4 @@
-import { JsonController, Get, Param, Post, HttpCode, Body, Put, NotFoundError,  NotAcceptableError, Patch, OnUndefined, BadRequestError } from 'routing-controllers'
+import { JsonController, Get, Param, Post, HttpCode, Body, Put, NotFoundError,  Patch, BadRequestError } from 'routing-controllers'
 import Game, {Colors} from './entity'
 
 const randomProperty = (obj) => {
