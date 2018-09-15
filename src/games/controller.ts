@@ -1,11 +1,16 @@
-import { JsonController, Get, Param, Post, HttpCode, Body, Put, NotFoundError, BadRequestError, NotAcceptableError } from 'routing-controllers'
+import { JsonController, Get, Param, Post, HttpCode, Body, Put, NotFoundError,  NotAcceptableError, Patch, OnUndefined, BadRequestError } from 'routing-controllers'
 import Game, {Colors} from './entity'
-import { ValidationError } from 'class-validator';
 
 const randomProperty = (obj) => {
   let keys = Object.keys(obj)
   return obj[keys[ keys.length * Math.random() << 0]]
 }
+
+const moves = (board1, board2) => 
+  board1
+    .map((row, y) => row.filter((cell, x) => board2[y][x] !== cell))
+    .reduce((a, b) => a.concat(b))
+    .length
 
 @JsonController()
 export default class PageController {
@@ -22,25 +27,39 @@ export default class PageController {
     return Game.findOne(id)
   }
 
+  @Patch('/games/:id')
   @Put('/games/:id')
+  @OnUndefined(400)
   async updateGame(
     @Param('id') id : number,
     @Body() update: Partial<Game>
   ) {
+    // basic error checking before querying
     if(update.color && !Colors[update.color]){
-      throw new NotAcceptableError('Colors may only be: ' + Object.values(Colors).join(', ')).message
+      throw new BadRequestError('Colors may only be: ' + Object.values(Colors).join(', '))
     }
 
     if(update.board){
       const board = JSON.parse(update.board)
 
-      if(board.length !== 3 || board.filter(row => row.length !== 3).length !== 3){
-        throw new NotAcceptableError('Invalid board grid; Expected 3x3').message
+      if(board.length !== 3 || board.filter(row => row.length === 3).length !== 3){
+        throw new BadRequestError('Invalid board grid; Expected 3x3')
       }
     }
 
+    // All seems fine, query
     const game = await Game.findOne(id)
     if(!game) throw new NotFoundError('Cannot find game')
+
+    if(update.board){
+      const cnt = moves(JSON.parse(game.board), JSON.parse(update.board))
+
+      if(cnt === 0){
+        throw new BadRequestError('You didnt make any move!')
+      } else if(cnt > 1){
+        throw new BadRequestError('Only one move is allowed!')
+      }
+    }
 
     return Game.merge(game, {
       name: update.name ? update.name : game.name,
