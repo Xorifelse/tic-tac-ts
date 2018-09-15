@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
 import { BaseEntity } from 'typeorm/repository/BaseEntity'
-import { IsString, MinLength, IsIn, IsJSON } from 'class-validator';
+import { IsString, MinLength, IsJSON } from 'class-validator';
 
 export enum Colors {
   red = 'red',
