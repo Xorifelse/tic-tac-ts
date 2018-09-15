@@ -3,7 +3,7 @@ import { DefaultNamingStrategy } from 'typeorm/naming-strategy/DefaultNamingStra
 import { NamingStrategyInterface } from 'typeorm/naming-strategy/NamingStrategyInterface'
 import { snakeCase } from 'typeorm/util/StringUtils'
 
-import Page from './pages/entity'
+import Game from './games/entity'
 
 const DSN = process.env.DSN || 'postgres://postgres:secret@localhost:5432/tictacts'
 
@@ -31,7 +31,7 @@ export default () =>
       type: "postgres",
       url: DSN,
       entities: [
-        Page
+        Game
       ],
       synchronize: true,
       logging: true,
