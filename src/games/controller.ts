@@ -42,6 +42,10 @@ export default class{
     if(update.board){
       const board = JSON.parse(update.board)
 
+      if(Array.isArray(board)){
+        throw new BadRequestError('Malformed board, expected an array')
+      }
+
       if(board.length !== 3 || board.filter(row => row.length === 3).length !== 3){
         throw new BadRequestError('Invalid board grid; Expected 3x3')
       }
