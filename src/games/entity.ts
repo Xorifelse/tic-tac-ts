@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
 import { BaseEntity } from 'typeorm/repository/BaseEntity'
-import { IsJSON } from 'class-validator';
+import { IsJSON, IsString, MinLength } from 'class-validator';
 
 export enum Colors {
   red = 'red',
@@ -16,9 +16,12 @@ export default class Game extends BaseEntity {
   @PrimaryGeneratedColumn()
   id?: number
 
+  @IsString()
+  @MinLength(1)
   @Column('text', {nullable:false})
   name: string
 
+  @IsString()
   @Column('enum', {enum: Colors})
   color: Colors
 
